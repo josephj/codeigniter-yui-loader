@@ -46,8 +46,7 @@ class Static_Loader {
             unset($module["js"]);
         }
 
-        // List the attributes which shouldn't
-        // be attached.
+        // List the attributes which should be attached.
         $allows = array("lang", "async", "requires");
         foreach ($module as $key => $value)
         {
