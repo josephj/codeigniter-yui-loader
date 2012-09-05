@@ -125,8 +125,8 @@ class Static_Loader {
         $css_files = array();
 
         // Make 'groups' config ready.
-        $modules = array_keys($config["modules"]);
-        foreach ($modules as $module_name)
+        $config_modules = array_keys($config["modules"]);
+        foreach ($config_modules as $module_name)
         {
             // Ignore modules which are not defined in configuration.
             // e.g. The YUI native modules.
@@ -157,10 +157,14 @@ class Static_Loader {
             $server_combo = !($group["fetchCSS"]);
             if ($server_combo)
             {
-                $css_files[] = $group["root"] . $module["css"];
+                if (in_array($module_name, $modules))
+                {
+                    $css_files[] = $group["root"] . $module["css"];                
+                }
+                
                 if (
                     ! isset($module["js"]) &&
-                    in_array($module_name, $this->user_modules)
+                    in_array($module_name, $modules)
                 )
                 {
                     $offset = array_search($module_name, $this->user_modules);
